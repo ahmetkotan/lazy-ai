@@ -95,7 +95,7 @@ lazy = lazyai.Lazy()
 
 lazy.learn("hello", "greetings")
 
-lazy.add_response("Hello there", "greetings")
+lazy.add_response("greetings", "Hello world!")
 
 lazy.query("hello dude!")
 
@@ -224,5 +224,7 @@ GET /responses/:category
 ## License & Contributors
 
 [Special thanks for ruby client @Yengas](https://github.com/Yengas)
+<br>
+[Special thanks for python client @ahmetkotan](https://github.com/ahmetkotan)
 
 MIT © [cagataycali](https://cagatay.me)
