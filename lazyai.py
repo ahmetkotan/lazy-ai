@@ -58,6 +58,22 @@ class Lazy:
         else:
             raise ValueError("Category and response can not be empty!")
 
+    # Adds a actions to the given category
+    # Path: /actions
+    # Params:
+    # *category: a string representing the category to add a actions to.
+    # *actions: string of characters to put as actions to a category.
+    def add_action(self, category, actions):
+        if not isinstance(category, str) and not isinstance(actions, str):
+            raise ValueError("Phrase and category must be strings!")
+        elif category and actions:
+            parameters = {'actions': actions, 'category': category}
+            add_actions_url = self.__create_url__('/actions')
+            actions = requests.post(add_actions_url, parameters)
+            return response.json()
+        else:
+            raise ValueError("Category and actions can not be empty!")
+
     # Analyzes and returns a random response for the given phrase.
     # Path: /query
     # Method: POST
@@ -110,4 +126,3 @@ class Lazy:
         load_url = self.__create_url__('/load')
         response = requests.get(load_url)
         return response.json()
-

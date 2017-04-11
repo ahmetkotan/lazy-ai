@@ -35,16 +35,24 @@ const Lazy = require('lazy.ai');
 
 async function start() {
   const lazy = new Lazy();
+
   // Learn ..
-  console.log(await lazy.learn({phrase: 'hello', category: 'greetings'}));
-  console.log(await lazy.learn({phrase: 'hi', category: 'greetings'}));
-  console.log(await lazy.learn({phrase: 'Hello there!', category: 'greetings'}));
-  // Result ..
-  console.log(await lazy.query({phrase: "hello dude!"}));
+  await lazy.learn({phrase: 'hello', category: 'greetings'})
+  await lazy.learn({phrase: 'hi', category: 'greetings'})
+  await lazy.learn({phrase: 'Hello there!', category: 'greetings'})
+
+  // Maybe add action ..
+  await lazy.addAction({category: 'greetings', actions: 'http://localhost:3000/'})
+  // Or add usual response ..
+  await lazy.addResponse({category: 'greetings', response: 'Hi there!'})
+
+  // Query.
+  await lazy.query({phrase: "hello dude!"})
+
   // Helpers..
-  console.log(await lazy.addResponse({category: 'greetings', response: 'Hi there!'}));
-  console.log(await lazy.getResponses({category: 'greetings'}));
-  console.log(await lazy.getCategories());
+  await lazy.getResponses({category: 'greetings'})
+  await lazy.getCategories()
+
 }
 // Dont forget start your function :)
 start();
@@ -91,11 +99,14 @@ $> pip install lazy-ai
 import lazyai
 
 # Change with a valid lazy chatbot server url.
-lazy = lazyai.Lazy()
+lazy = lazyai.Lazy(host = "lazy.herokuapp.com")
 
 lazy.learn("hello", "greetings")
 
+# Add usual response ..
 lazy.add_response("greetings", "Hello world!")
+# Or add action for response ..
+lazy.add_action("greetings", "https://runkit.io/cagataycali/58ecba3935790c0014337610/branches/master")
 
 lazy.query("hello dude!")
 
@@ -184,6 +195,12 @@ POST /forget
 
 ```
 POST /response
+```
+
+### Add action in category (category, actions)
+
+```
+POST /action
 ```
 
 ### Do query in trained data and response random response text.
