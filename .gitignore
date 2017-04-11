@@ -1,0 +1,5 @@
+build/
+*.pyc
+.idea/
+dist/
+lazy_ai.egg-info/
